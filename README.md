@@ -1,45 +1,40 @@
-# Byrd ~ Leak all the things!
+# Byrd ~ Bring Your Restricted Documents
 
-Byrd makes use of a Distributed Hash Table to identify the location of encrypted chunks of files distributed amongst available peers. 
+Byrd makes use of a DHT (Distributed Hash Table) to distribute encrypted chunks of documents amongst available peers. The Byrd UI allows you to choose a name for your document, and upload the file. The UI encrypts the file and breaks it into chunks, which are then distributed. The individual nodes will only have small, unusable pieces of the documents. See: [Plausible deniability](https://en.wikipedia.org/wiki/Plausible_deniability).
+
+Byrd UI also allows you reassemble the files when provided the name of a previously uploaded file. The name is hashed, and the document's blueprint is fetched, identifying the location of the individual pieces, and then the pieces are fetched, reassembled, and unencrypted all in the UI.
 
 ## Quick Start
 
-~~~sh
-# getting the code
-git clone git@github.com:nko5/counterpoint.git && cd ./counterpoint/
+For the sake of the demo for the node knockout hackathon, we are running on a single modulus.io instance. But, since this application requires multiple nodes to operate, we are spawning 4 instances using [pm2](https://github.com/Unitech/pm2).
 
-# developing
+The web app is accessible on load balanced port 3000. The individual instances are each reachable on their own port 3001 - 3004.
+
+The Kademelia DHT implementation is by [Gordon Hall's Kad project](http://github.com/gordonwritescode)
+
+```
+# getting the code
+git@github.com:nko5/counterpoint.git && cd counterpoint
+
+# running the demo
 npm install
 npm start
 
-# setup your modulus account
-npm install -g modulus
-modulus login
+# running a real node
+npm install -g pm2
+pm2 start server.js --name byrd
+```
+### Configuring the seed list
 
-# deploying to Modulus (to http://counterpoint.2015.nodeknockout.com/)
-modulus deploy
+Create the file config/local.json, and populate it with your seeds in the following format. This will override the default seed list.
 
-# view the most recent logs from modulus
-modulus project logs
-~~~
-
-Read more about this setup [on our blog][deploying-nko].
-
-[deploying-nko]: http://www.nodeknockout.com/deploying
-
-### Vote KO Widget
-
-![Vote KO widget](http://f.cl.ly/items/1n3g0W0F0G3V0i0d0321/Screen%20Shot%202012-11-04%20at%2010.01.36%20AM.png)
-
-Use our "Vote KO" widget to let from your app directly. Here's the code for
-including it in your site:
-
-~~~html
-<iframe src="http://nodeknockout.com/iframe/counterpoint" frameborder=0 scrolling=no allowtransparency=true width=115 height=25>
-</iframe>
-~~~
-
-## Have fun!
-
-If you have any issues, we're on IRC in #nodeknockout on freenode, email us at
-<help@nodeknockout.com>, or tweet [@nodeknockout](https://twitter.com/nodeknockout).
+```
+{
+  "kad": {
+    "seeds": [
+      { "address": "some.domain.name", port: 35000 },
+      { "address": "some.other.name", port: 35000 },
+    ]
+  }
+}
+```
