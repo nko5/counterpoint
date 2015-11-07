@@ -19,6 +19,7 @@
   ],
   "main": "./app.js",
   "dependencies": {
+    "blobulator": "niahmiah/blobulator",
     "body-parser": "^1.14.1",
     "config": "^1.16.0",
     "ejs": "^2.3.4",
@@ -26,7 +27,6 @@
     "kad": "^0.7.0",
     "leveldown": "^1.4.2",
     "levelup": "^1.2.1",
-    "pm2": "^0.15.10",
     "winston": "^2.1.0"
   },
   "scripts": {
