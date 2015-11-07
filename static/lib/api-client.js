@@ -18,9 +18,10 @@ window.byrd.APIClient = (function() {
     var xhr = new XMLHttpRequest();
 
     xhr.addEventListener('load', function() {
+      console.log('status', xhr.status)
       var json = JSON.parse(xhr.responseText);
 
-      if (xhr.status !== '200' && xhr.status !== '201') {
+      if (xhr.status !== 200 && xhr.status !== 201) {
         return callback(new Error(json.error));
       }
 
