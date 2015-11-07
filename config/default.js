@@ -1,6 +1,6 @@
 'use strict';
 
-var instanceId = process.env.NODE_APP_INSTANCE;
+var instanceId = process.env.NODE_APP_INSTANCE || 0;
 var levelup = require('levelup');
 var pkg = require('../package.json');
 
