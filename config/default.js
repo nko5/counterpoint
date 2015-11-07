@@ -1,7 +1,6 @@
 'use strict';
 
 var instanceId = process.env.NODE_APP_INSTANCE || 0;
-var levelup = require('levelup');
 var pkg = require('../package.json');
 
 var kadPort = 35000 + Number(instanceId);
@@ -11,7 +10,6 @@ var config = {
     "address": "127.0.0.1",
     "port": 35000 + Number(instanceId),
     "seeds": [],
-    "storage": levelup('/tmp/'+pkg.name+instanceId),
     "logLevel": 4
   },
   "express": {

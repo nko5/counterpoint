@@ -3,7 +3,13 @@
 var config = require('config');
 var log = require('../lib/log');
 var kademlia = require('kad');
-var dht = kademlia(config.get('kad'));
+var kadConfig = config.get('kad');
+var levelup = require('levelup');
+
+kadConfig.storage = levelup('/tmp/'+ config.get('name') + config.get('instanceId'));
+
+var dht = kademlia(kadConfig);
+
 log.info('Started kademelia on port ' + config.get('kad.port'));
 log.info(' - Seed list: ' + JSON.stringify(config.get('kad.seeds')));
 
