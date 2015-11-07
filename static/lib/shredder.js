@@ -15,7 +15,6 @@ window.byrd.Shredder = (function() {
   var bitcore = require('bitcore-lib');
   var sha256 = bitcore.crypto.Hash.sha256;
   var Buffer = bitcore.deps.Buffer;
-  var buffer = bitcore.util.buffer;
 
   function Shredder(file) {
     this._reader = new FileReader();
@@ -81,22 +80,6 @@ window.byrd.Shredder = (function() {
 
     callback(null, decryptedFileString);
   };
-
-  var input = document.getElementById('file');
-
-  input.addEventListener('change', function() {
-    var file = this.files[0];
-    var shredder = new Shredder(file);
-
-    shredder.shred(function(err, chunks) {
-      var fileHash = shredder.getHash();
-      shredder.unshred(fileHash, chunks, function(err, url) {
-        var metadata = shredder.getMetadata();
-        var open = metadata + ',' + url;
-        window.open(open);
-      });
-    });
-  });
 
   return Shredder;
 
