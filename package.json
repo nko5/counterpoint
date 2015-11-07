@@ -20,9 +20,9 @@
   "main": "./app.js",
   "dependencies": {
     "config": "^1.16.0",
-    "express": "^4.13.3",
-    "pm2": "^0.15.10",
     "ejs": "^2.3.4",
+    "express": "^4.13.3",
+    "kad": "^0.7.0",
     "leveldown": "^1.4.2",
     "levelup": "^1.2.1",
     "pm2": "^0.15.10"
