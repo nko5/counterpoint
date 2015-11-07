@@ -1,9 +1,10 @@
 {
   "name": "byrd",
   "dependencies": {
-    "bitcore-lib": "^0.13.8",
+    "bitcore-lib": "^0.13.9",
     "bitcore-mnemonic": "~1.0.1",
     "jquery": "~2.1.4",
-    "jquery-qrcode": "*"
+    "jquery-qrcode": "*",
+    "aes": "~0.0.1"
   }
 }
