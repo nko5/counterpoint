@@ -1,6 +1,11 @@
 'use strict';
 
-var dht = require('../lib/dht');
+var config = require('config');
+var log = require('../lib/log');
+var kademlia = require('kad');
+var dht = kademlia(config.get('kad'));
+log.info('Started kademelia on port ' + config.get('kad.port'));
+log.info(' - Seed list: ' + JSON.stringify(config.get('kad.seeds')));
 
 function Get(req, res, next){
   if(req.params && req.params.hash){
