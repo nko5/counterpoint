@@ -27,13 +27,15 @@ body {
   margin:0;
   padding:0;
   background-color: #f6f6f6;
+  color: #333;
 }
 #header h1 {
   color: #fff;
-  width: 100px;
-  height: 100px;
+  width: 405px;
+  height: 152px;
   margin: auto;
-  background: #999;
+  background: url('static/byrd_logo_expanded.svg') center center no-repeat;
+  background-size: 100%;
   text-indent: -9999px;
 }
 #header {
@@ -41,8 +43,10 @@ body {
   padding:20px;
   margin-top: 64px;
 }
-#wrapper {
-  margin:25px;
+.wrapper {
+  margin:25px auto;
+  width: 1010px;
+  overflow: hidden;
 }
 #byrd-search {
   height:130px;
@@ -108,7 +112,7 @@ body {
   position: relative;
   top: -4px;
   left: -56px;
-  background: url('/static/search.svg') center center no-repeat green;
+  background: url('/static/search.svg') center center no-repeat #719a48;
   border: 0;
   text-indent: -9999px;
   overflow: hidden;
@@ -125,13 +129,40 @@ body {
   position: relative;
   left: 12px;
 }
+
+#byrd-about {
+  width: 480px;
+  float: left;
+}
+
+#byrd-shredder {
+  width: 480px;
+  float: left;
+}
+
+h3 {
+  color: #55487e;
+}
+
+a {
+  color: #719a48;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+p {
+  font-size: 14px;
+}
 </style>
 </head>
 <body>
 <div id="header">
   <h1 id="logo">Byrd</h1>
 </div>
-<div id="wrapper">
+<div class="wrapper" style="margin-bottom:100px">
   <div>
     <div id="byrd-search">
       <form id="unshred-form" action="#">
@@ -148,9 +179,15 @@ body {
   <div>
     <div id="byrd-about">
       <h3>About</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis a bibendum nibh, eget porttitor mauris. Donec massa augue, vehicula ac mauris vitae, molestie commodo nibh. Nunc tristique tellus quis tortor volutpat, vitae ornare felis fringilla. Fusce sapien dui, semper sed enim at, facilisis volutpat dolor. Duis auctor risus ac est vestibulum, nec condimentum nibh porta. Aliquam at tellus a mi tempor mattis. Fusce condimentum condimentum felis eget bibendum. Proin nisi nibh, hendrerit ac ultrices nec, venenatis ut felis. Nulla facilisi.</p>
-      <iframe src="http://nodeknockout.com/iframe/counterpoint" frameborder=0 scrolling=no allowtransparency=true width=115 height=25>
-      </iframe>
+      <p>
+        The game is simple. You've got access to documents and <strong>we want you to leak them</strong>.
+      </p>
+      <p>
+        BYRD is a distributed network that allows you to share and access content with <a href="https://en.wikipedia.org/wiki/Plausible_deniability">plausible deniability</a>. Files are encrypted, shredded, and disbursed all over the network. The chunks can be later retrieved and reassembled on your computer by using an easy to remember "alias".
+      </p>
+      <p>
+        <a href="#">Learn More →</a>
+      </p>
     </div>
     <div id="byrd-shredder">
       <h3>Shred</h3>
@@ -173,8 +210,11 @@ body {
   </div>
 </div>
 <div id="statusline">
-  <i id="indicator" class="idle"></i>
-  <span class="status">No activity</span>
+  <div class="wrapper" style="margin:0 auto">
+    <i id="indicator" class="idle"></i>
+    <span class="status">No activity</span>
+    <iframe style="float: right;margin:12px" src="http://nodeknockout.com/iframe/counterpoint" frameborder=0 scrolling=no allowtransparency=true width=115 height=25></iframe>
+  </div>
 </div>
 </body>
 </html>
