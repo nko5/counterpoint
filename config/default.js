@@ -7,7 +7,11 @@ var config = {
     "port": process.env.PORT || 3000
   },
   "name": pkg.name,
-  "servers": []
+  "servers": [
+    {address: '52.33.17.249', port: 3000},
+    {address: '52.33.127.114', port: 3000},
+    {address: '52.33.113.239', port: 3000}
+  ]
 }
 
 module.exports = config;
