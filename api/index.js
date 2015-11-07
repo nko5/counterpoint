@@ -11,13 +11,7 @@ kadConfig.storage = levelup('/tmp/'+ config.get('name') + config.get('instanceId
 var dht = kademlia(kadConfig);
 
 log.info('Started kademelia on port ' + config.get('kad.port'));
-log.info(' - Seed list: ' + JSON.stringify(config.get('kad.seeds')));
-
-setTimeout(function() {
-  config.get('kad.seeds').forEach(function(seed) {
-    dht.connect(seed);
-  });
-}, 100);
+log.info('Seed list: ' + JSON.stringify(config.get('kad.seeds')));
 
 function Get(req, res, next){
   if(req.params && req.params.hash){
