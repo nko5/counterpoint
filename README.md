@@ -1,3 +1,7 @@
+# Byrd ~ Leak all the things!
+
+Byrd makes use of a Distributed Hash Table to identify the location of encrypted chunks of files distributed amongst available peers. 
+
 ## Quick Start
 
 ~~~sh

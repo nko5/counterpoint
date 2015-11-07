@@ -19,9 +19,11 @@
   ],
   "main": "./app.js",
   "dependencies": {
+    "express": "^4.13.3",
+    "pm2": "^0.15.10"
   },
   "scripts": {
-    "start": "node app.js",
+    "start": "node start.js",
     "postinstall": "node scripts/postinstall.js"
   },
   "license": "MIT",
