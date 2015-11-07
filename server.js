@@ -22,15 +22,24 @@ app.use(express.static('public'));
 var server = app.listen(config.get('express.port'));
 log.info('Started express server on ' + config.get('express.port'));
 
+function shutdown(){
+  server.close(function() {
+    log.info('Closed remaining http connections.');
+    process.exit()
+  });
+}
+
 // PM2 sends IPC message for graceful shutdown
 process.on('message', function msgCb(msg) {
   if (msg === 'shutdown') {
     // do graceful shutdown stuff
-    server.close(function() {
-      log.info('Closed remaining http connections.');
-      process.exit()
-    });
+    shutdown();
   }
+});
+
+process.on('uncaughtException', function errCb(err){
+  log.error('Got uncaught exception: ' + err.stack);
+  shutdown();
 });
 
 module.exports = app;
