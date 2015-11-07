@@ -33,6 +33,7 @@ function shutdown(){
 process.on('message', function msgCb(msg) {
   if (msg === 'shutdown') {
     // do graceful shutdown stuff
+    log.info('Got shutdown message from pm2');
     shutdown();
   }
 });
