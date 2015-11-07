@@ -15,10 +15,6 @@ window.byrd.Shredder = (function() {
   var bitcore = require('bitcore-lib');
   var sha256 = bitcore.crypto.Hash.sha256;
   var Buffer = bitcore.deps.Buffer;
-<<<<<<< HEAD
-=======
-  var buffer = bitcore.util.buffer;
->>>>>>> 86ac28d810cf9775836049c8b428b456fb62f7f5
 
   function Shredder(file) {
     this._reader = new FileReader();

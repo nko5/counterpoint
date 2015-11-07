@@ -7,11 +7,11 @@ window.byrd.APIClient = (function() {
   }
 
   APIClient.prototype.get = function(key, callback) {
-    this._request('GET', '/' + key, {}, callback);
+    this._request('GET', '/' + encodeURIComponent(key), {}, callback);
   };
 
   APIClient.prototype.put = function(key, value, callback) {
-    this._request('PUT', '/' + key, { data: value }, callback);
+    this._request('PUT', '/' + encodeURIComponent(key), { data: value }, callback);
   };
 
   APIClient.prototype._request = function(verb, path, data, callback) {

@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var Buffer = bitcore.deps.Buffer;
   var sha256 = bitcore.crypto.Hash.sha256;
   var input = document.getElementById('file');
-  var api = new APIClient();
+  var api = new byrd.APIClient();
 
   input.addEventListener('change', function() {
     var file = this.files[0];
@@ -14,8 +14,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     shredder.shred(function(err, chunks) {
 
-      async.mapLimit(chunks, 4, function(done) {
-        var hash = sha256(new Buffer(chunk, 'base64'));
+      async.mapLimit(chunks, 4, function(chunk, done) {
+        var hash = sha256(new Buffer(chunk, 'base64')).toString('base64');
+
         api.put(hash, chunk, function(err, result) {
           console.log(result);
           done(err, hash);
@@ -26,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         var blueprint = new byrd.Blueprint(chunkHashes, shredder.getMetadata());
-        var blueprintHash = sha256(JSON.stringify(blueprint));
+        var blueprintHash = sha256(JSON.stringify(blueprint)).toString('base64');
 
         console.log(blueprint);
 
