@@ -10,7 +10,6 @@ log.info(' - Seed list: ' + JSON.stringify(config.get('kad.seeds')));
 function Get(req, res, next){
   if(req.params && req.params.hash){
     log.info('Requesting: ' + req.params.hash);
-    if(!dht.ready) return next();
     dht.get(req.params.hash, function(err, value){
       if(err){
         res.status(500).json({error: err});
@@ -28,12 +27,11 @@ function Get(req, res, next){
 function Put(req, res, next){
   if(req.params && req.params.hash && req.body.data){
     log.info('Putting: ' + req.params.hash);
-    if(!dht.ready) return next();
     dht.put(req.params.hash, req.params.data, function(err){
       if(err){
         res.status(500).json({error: err});
       }else{
-        res.status(201).json({error: 'File does not exist'});
+        res.status(201).json({success: 'Data was put successfully'});
       }
     });
   }else{
