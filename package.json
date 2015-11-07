@@ -30,7 +30,8 @@
     "winston": "^2.1.0"
   },
   "scripts": {
-    "start": "node start.js",
+    "start": "pm2 start server.js -i 4 --name \"byrd\" --log ./log/log.txt",
+    "reload": "pm2 gracefulReload \"byrd\"",
     "postinstall": "node scripts/postinstall.js"
   },
   "license": "MIT",

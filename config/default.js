@@ -10,7 +10,7 @@ var config = {
     "address": "127.0.0.1",
     "port": 35000 + Number(instanceId),
     "seeds": [],
-    "logLevel": 4
+    "logLevel": 2
   },
   "express": {
     "port": 3000 + Number(instanceId)
