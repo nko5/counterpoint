@@ -36,7 +36,9 @@ window.byrd.Shredder = (function() {
 
       var fileHash = sha256(fileContentBuffer);
 
-      self._fileHash = fileHash;
+      self._fileHash = fileHash.toString('base64');
+
+      console.log(self._fileHash);
       var encryptedFile = Aes.Ctr.encrypt(fileContent, self._fileHash, 256);
 
       var remainder = encryptedFile.length % 10;

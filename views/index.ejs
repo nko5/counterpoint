@@ -45,10 +45,10 @@
       <div class="mdl-cell mdl-cell--6-col">
       <h3>Shred</h3>
       <p>Distribute chunks of a file to the Byrd peer-to-peer network.</p>
-      <form action="#">
+      <form id="shred-form" action="#">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input class="mdl-textfield__input" type="text" id="sample3">
-          <label class="mdl-textfield__label" for="sample3">Name</label>
+          <input class="mdl-textfield__input" type="text" id="blueprint-name">
+          <label class="mdl-textfield__label" for="blueprint-name ">Name</label>
         </div>
         <p>
           <input type="file" id="file"></input>
@@ -63,13 +63,13 @@
     <div class="mdl-cell mdl-cell--6-col">
       <h3>Unshred</h3>
       <p>Reassemble a file from the Byrd peer-to-peer network.</p>
-      <form action="#">
+      <form id="unshred-form" action="#">
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input class="mdl-textfield__input" type="text" id="sample3">
-          <label class="mdl-textfield__label" for="sample3">Name</label>
+          <input class="mdl-textfield__input" type="text" id="unshred-blueprint-name">
+          <label class="mdl-textfield__label" for="unshred-blueprint-name">Name</label>
         </div>
         <p>
-          <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
+          <button id="unshred" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
           Unshred It
           </button>
         </p>
