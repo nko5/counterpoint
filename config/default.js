@@ -13,7 +13,7 @@ var config = {
     "logLevel": 2
   },
   "express": {
-    "port": 3000 + Number(instanceId)
+    "port": 3000 + Number(instanceId) + 1
   },
   "instanceId": instanceId,
   "name": pkg.name
