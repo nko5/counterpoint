@@ -19,15 +19,16 @@ app.get('/:hash', api.get);
 app.put('/:hash', api.put);
 
 app.use(express.static('public'));
-app.listen(config.get('express.port'));
+var server = app.listen(config.get('express.port'));
 log.info('Started express server on ' + config.get('express.port'));
 
 // PM2 sends IPC message for graceful shutdown
 process.on('message', function msgCb(msg) {
   if (msg === 'shutdown') {
-    var db = config.get('storage');
-    db.close(function(){
-      log.info('Closed DB');
+    // do graceful shutdown stuff
+    server.close(function() {
+      log.info('Closed remaining http connections.');
+      process.exit()
     });
   }
 });
