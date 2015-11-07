@@ -6,17 +6,19 @@
 <script src="static/js/jquery/dist/jquery.js"></script>
 <script src="static/js/jquery-qrcode/jquery.qrcode.min.js"></script>
 <script src="static/js/bitcore-lib/bitcore-lib.js"></script>
-<script src="static/js/bitcore-mnemonic/bitcore-mnemonic.js"></script>
+<script src="static/js/aes/aes.js"></script>
+<script src="static/js/aes/aes-ctr.js"></script>
 <style>
 </style>
 <script language="javascript">
   $(document).ready(function() {
-    var bitcore = require('bitcore-lib');
-    var Mnemonic = require('bitcore-mnemonic');
+//    var bitcore = require('bitcore-lib');
   });
 </script>
 </head>
 <body>
-It works!
+  <input type="file" id="file" />
+  <img id="preview">
+  <script src="static/lib/shredder.js"></script>
 </body>
 </html>

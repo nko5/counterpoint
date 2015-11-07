@@ -1,6 +1,6 @@
 'use strict';
 
-var dht = require('./lib/dht');
+var dht = require('../lib/dht');
 
 function Get(req, res, next){
   if(req.params && req.params.hash){
@@ -30,7 +30,7 @@ function Put(req, res, next){
       }else{
         res.status(201).json({error: 'File does not exist'});
       }
-    }
+    });
   }else{
     res.status(400).json({error: 'Invalid request'});
   }

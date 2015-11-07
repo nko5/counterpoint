@@ -17,8 +17,6 @@ app.get('/', function(req, res) {
 app.use(bodyParser.json());
 app.get('/:hash', api.get);
 app.put('/:hash', api.put);
-app.get('/data/:hash', api.get);
-app.put('/data/:hash', api.put);
 
 app.use(express.static('public'));
 app.listen(config.get('express.port'));
