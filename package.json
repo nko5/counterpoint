@@ -25,7 +25,8 @@
     "kad": "^0.7.0",
     "leveldown": "^1.4.2",
     "levelup": "^1.2.1",
-    "pm2": "^0.15.10"
+    "pm2": "^0.15.10",
+    "winston": "^2.1.0"
   },
   "scripts": {
     "start": "node start.js",

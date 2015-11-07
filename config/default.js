@@ -18,7 +18,9 @@ var config = {
   },
   "express": {
     "port": 3000 + Number(instanceId)
-  }
+  },
+  "instanceId": instanceId,
+  "name": pkg.name
 }
 
 module.exports = config;
