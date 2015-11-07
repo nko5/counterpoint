@@ -26,15 +26,20 @@ body {
   font-family: 'Open Sans', sans-serif;
   margin:0;
   padding:0;
+  background-color: #f6f6f6;
 }
 #header h1 {
-  margin:0;
-  color:#fff;
+  color: #fff;
+  width: 100px;
+  height: 100px;
+  margin: auto;
+  background: #999;
+  text-indent: -9999px;
 }
 #header {
   text-align:center;
-  background-color:#55487e;
   padding:20px;
+  margin-top: 64px;
 }
 #wrapper {
   margin:25px;
@@ -87,24 +92,57 @@ body {
   float: left;
   margin: 12px;
 }
+#unshred-blueprint-name {
+  font-size: 26px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0 3px 5px #d2d2d2;
+  background: #fefefe;
+  width: 500px;
+}
+#search-button {
+  width: 48px;
+  height: 48px;
+  display: inline-block;
+  position: relative;
+  top: -4px;
+  left: -56px;
+  background: url('/static/search.svg') center center no-repeat green;
+  border: 0;
+  text-indent: -9999px;
+  overflow: hidden;
+  border-radius: 3px;
+  background-size: 80%;
+}
+
+#search-button:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.bird-search-input {
+  position: relative;
+  left: 12px;
+}
 </style>
 </head>
 <body>
 <div id="header">
-  <h1>Byrd</h1>
+  <h1 id="logo">Byrd</h1>
 </div>
 <div id="wrapper">
   <div>
     <div id="byrd-search">
       <form id="unshred-form" action="#">
-        <p>Reassemble a file from the Byrd peer-to-peer network.</p>
         <div class="bird-search-input mdl-textfield mdl-js-textfield">
-          <input class="mdl-textfield__input" type="text" id="unshred-blueprint-name">
+          <input class="mdl-textfield__input" type="text" id="unshred-blueprint-name" placeholder="Paste or type a file alias here...">
+          <button id="search-button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
+            Find
+          </button>
         </div>
-        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
-          Unshred It
-        </button>
       </form>
+      <p><small style="color:#666">Why not try "something", "something", or "something"?</small></p>
     </div>
   </div>
   <div>
