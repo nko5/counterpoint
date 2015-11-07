@@ -20,4 +20,14 @@ log.info('Started express server on ' + config.get('express.port'));
 var kademlia = require('kad');
 var dht = kademlia(config.get('kad'))
 
+// PM2 sends IPC message for graceful shutdown
+process.on('message', function msgCb(msg) {
+  if (msg === 'shutdown') {
+    var db = config.get('storage');
+    db.close(function(){
+      log.info('Closed DB');
+    });
+  }
+});
+
 module.exports = app;

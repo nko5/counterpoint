@@ -14,7 +14,7 @@ var config = {
         "port": 65535
       }
     ],
-    "storage": levelup('/tmp/pkg.name'+instanceId)
+    "storage": levelup('/tmp/'+pkg.name+instanceId)
   },
   "express": {
     "port": 3000 + Number(instanceId)

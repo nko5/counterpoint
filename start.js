@@ -2,7 +2,6 @@
 
 var pm2 = require('pm2');
 var pkg = require('./package.json');
-var log = require('./lib/log');
 
 pm2.connect(function() {
   pm2.start({
@@ -15,10 +14,10 @@ pm2.connect(function() {
   }, function(err, apps) {
     pm2.list(function(err, list){
       list.forEach(function(instance){
-        log.info('Started instance: ' + instance.name + ' ' + instance.pm_id);
+        console.log('Started instance: ' + instance.name + ' ' + instance.pm_id);
       });
-      log.info('Output log redirected to log: ' + list[0].pm2_env.pm_out_log_path);
-      log.info('Error log redirected to: ' + list[0].pm2_env.pm_err_log_path);
+      console.log('Output log redirected to log: ' + list[0].pm2_env.pm_out_log_path);
+      console.log('Error log redirected to: ' + list[0].pm2_env.pm_err_log_path);
       pm2.disconnect();
     });
   });
@@ -27,9 +26,11 @@ pm2.connect(function() {
 function stopAll(){
   pm2.connect(function() {
     pm2.stop(pkg.name, function(err){
-      pm2.delete(pkg.name, function(err){
-        pm2.disconnect();
-      });
+      setTimeout(function(){
+        pm2.delete(pkg.name, function(err){
+          pm2.disconnect();
+        });
+      }, 2000);
     });
   });
 }
