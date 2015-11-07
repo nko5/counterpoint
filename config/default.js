@@ -20,11 +20,12 @@ var config = {
   "name": pkg.name
 }
 
-[65000,65001,65002,65003].forEach(function(kp){
+var potentialPorts = [65000,65001,65002,65003];
+potentialPorts.forEach(function(kp){
   if(kp !== kadPort){
-    config.kad.seeds.push({
+    config.kad.seeds.push(
       { address: '127.0.0.1', port: kp }
-    });
+    );
   }
 });
 

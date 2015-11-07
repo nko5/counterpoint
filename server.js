@@ -32,4 +32,10 @@ process.on('message', function msgCb(msg) {
   }
 });
 
+app.use(express.static('public'));
+app.listen(config.get('express.port'));
+
+var kademlia = require('kad');
+var dht = kademlia(config.get('kad'))
+
 module.exports = app;
