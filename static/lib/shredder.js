@@ -23,24 +23,25 @@ window.byrd.Shredder = (function() {
 
     this._reader.onloadend = function() {
       var result = this.result;
-
       var metadata = result.split(',')[0];
       self._metadata = metadata;
       var fileContent = result.split(',')[1];
-
       var fileContentBuffer = new Buffer(fileContent, 'base64');
-
       var fileHash = sha256(fileContentBuffer);
-
       self._fileHash = fileHash.toString('base64');
-
-      console.log(self._fileHash);
       var encryptedFile = Aes.Ctr.encrypt(fileContent, self._fileHash, 256);
-
       var remainder = encryptedFile.length % 10;
       var chunkSize = (encryptedFile.length - remainder) / 10;
       var iterations = 10;
       var position = 0;
+
+      console.log(chunkSize, remainder)
+
+      if (chunkSize > 64000) {
+        remainder = encryptedFile.length % 64000;
+        chunkSize = 64000;
+        iterations = (encryptedFile.length - remainder) / 64000;
+      }
 
       for (var i = 0; i < iterations; i++) {
         var encryptedChunk = encryptedFile.slice(position, position + chunkSize);
@@ -65,6 +66,12 @@ window.byrd.Shredder = (function() {
 
   Shredder.prototype.getMetadata = function() {
     return this._metadata;
+  };
+
+  Shredder.prototype.download = function(uri) {
+    var anchor = document.createElement('a');
+    anchor.href = uri;
+    anchor.click();
   };
 
   Shredder.prototype.unshred = function(fileHash, chunks, callback) {

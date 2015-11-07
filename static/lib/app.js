@@ -115,12 +115,12 @@ document.addEventListener('DOMContentLoaded', function() {
             var dataURI = blueprint.metadata + ',' + url;
 
             statusline.setStatus('success', 'File resolved! Thank you, come again!');
-            window.open(dataURI);
+            shredder.download(dataURI);
+
           });
         });
       });
     })
-
 
   });
 
