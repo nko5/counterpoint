@@ -19,11 +19,43 @@
 <script src="static/lib/app.js"></script>
 <script src="static/js/bitcore-mnemonic/bitcore-mnemonic.js"></script>
 <script src="static/lib/shredder.js"></script>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300italic,400italic,600,600italic,700,300' rel='stylesheet' type='text/css'>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="static/js/material-design-lite/material.min.css">
-<script src="static/js/material-design-lite/material.min.js"></script>
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <style>
+body {
+  font-family: 'Open Sans', sans-serif;
+  margin:0;
+  padding:0;
+}
+#header h1 {
+  margin:0;
+  color:#fff;
+}
+#header {
+  text-align:center;
+  background-color:#55487e;
+  padding:20px;
+}
+#wrapper {
+  margin:25px;
+}
+#byrd-search {
+  height:130px;
+  text-align:center;
+  top:30px;
+  margin:auto;
+  width: 60%;
+  min-height:0;
+}
+#byrd-about {
+  width:45%;
+  float:left;
+  padding-right:50px;
+}
+#byrd-shredder {
+  width:45%;
+  float:left;
+}
 #statusline {
   position: fixed;
   bottom: 0;
@@ -32,7 +64,6 @@
   overflow: hidden;
   background: #e2e2e2;
 }
-
 #indicator {
   float: left;
   margin: 12px;
@@ -40,23 +71,18 @@
   height: 24px;
   border-radius: 12px;
 }
-
 #indicator.idle {
   background-color: #d2d2d2;
 }
-
 #indicator.working {
   background-color: blue;
 }
-
 #indicator.failed {
   background-color: red;
 }
-
 #indicator.success {
   background-color: green;
 }
-
 #statusline .status {
   float: left;
   margin: 12px;
@@ -64,34 +90,41 @@
 </style>
 </head>
 <body>
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-  <header class="mdl-layout__header">
-    <div class="mdl-layout-icon">
+<div id="header">
+  <h1>Byrd</h1>
+</div>
+<div id="wrapper">
+  <div>
+    <div id="byrd-search">
+      <form id="unshred-form" action="#">
+        <p>Reassemble a file from the Byrd peer-to-peer network.</p>
+        <div class="bird-search-input mdl-textfield mdl-js-textfield">
+          <input class="mdl-textfield__input" type="text" id="unshred-blueprint-name">
+        </div>
+        <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
+          Unshred It
+        </button>
+      </form>
     </div>
-    <div class="mdl-layout__header-row">
-      <span class="mdl-layout__title">Byrd</span>
-      <div class="mdl-layout-spacer"></div>
-      <nav class="mdl-navigation">
-        <a class="mdl-navigation__link" href="#">Main</a>
-        <a class="mdl-navigation__link" href="#">About</a>
-      </nav>
+  </div>
+  <div>
+    <div id="byrd-about">
+      <h3>About</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis a bibendum nibh, eget porttitor mauris. Donec massa augue, vehicula ac mauris vitae, molestie commodo nibh. Nunc tristique tellus quis tortor volutpat, vitae ornare felis fringilla. Fusce sapien dui, semper sed enim at, facilisis volutpat dolor. Duis auctor risus ac est vestibulum, nec condimentum nibh porta. Aliquam at tellus a mi tempor mattis. Fusce condimentum condimentum felis eget bibendum. Proin nisi nibh, hendrerit ac ultrices nec, venenatis ut felis. Nulla facilisi.</p>
       <iframe src="http://nodeknockout.com/iframe/counterpoint" frameborder=0 scrolling=no allowtransparency=true width=115 height=25>
       </iframe>
     </div>
-  </header>
-  <main class="mdl-layout__content">
-    <div class="mdl-grid">
-      <div class="mdl-cell mdl-cell--6-col">
+    <div id="byrd-shredder">
       <h3>Shred</h3>
       <p>Distribute chunks of a file to the Byrd peer-to-peer network.</p>
       <form id="shred-form" action="#">
+        <p>
+          <input type="file" id="file"></input>
+        </p>
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
           <input class="mdl-textfield__input" type="text" id="blueprint-name">
           <label class="mdl-textfield__label" for="blueprint-name ">Name</label>
         </div>
-        <p>
-          <input type="file" id="file"></input>
-        </p>
         <p>
           <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
           Shred It
@@ -99,22 +132,7 @@
         </p>
       </form>
     </div>
-    <div class="mdl-cell mdl-cell--6-col">
-      <h3>Unshred</h3>
-      <p>Reassemble a file from the Byrd peer-to-peer network.</p>
-      <form id="unshred-form" action="#">
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input class="mdl-textfield__input" type="text" id="unshred-blueprint-name">
-          <label class="mdl-textfield__label" for="unshred-blueprint-name">Name</label>
-        </div>
-        <p>
-          <button id="unshred" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
-          Unshred It
-          </button>
-        </p>
-      </form>
-    </div>
-  </main>
+  </div>
 </div>
 <div id="statusline">
   <i id="indicator" class="idle"></i>
