@@ -16,6 +16,8 @@ app.get('/', function(req, res) {
 app.use(express.static('public'));
 app.listen(config.get('express.port'));
 log.info('Started express server on ' + config.get('express.port'));
+log.info('Started kademelia on port ' + config.get('kad.port'));
+log.info(' - Seed list: ' + config.get('kad.seeds'));
 
 var kademlia = require('kad');
 var dht = kademlia(config.get('kad'))
