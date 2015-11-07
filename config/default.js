@@ -4,14 +4,15 @@ var instanceId = process.env.NODE_APP_INSTANCE || 0;
 var levelup = require('levelup');
 var pkg = require('../package.json');
 
-var kadPort = 65000 + Number(instanceId);
+var kadPort = 35000 + Number(instanceId);
 
 var config = {
   "kad": {
     "address": "127.0.0.1",
-    "port": 65000 + Number(instanceId),
+    "port": 35000 + Number(instanceId),
     "seeds": [],
-    "storage": levelup('/tmp/'+pkg.name+instanceId)
+    "storage": levelup('/tmp/'+pkg.name+instanceId),
+    "logLevel": 4
   },
   "express": {
     "port": 3000 + Number(instanceId)
@@ -20,7 +21,7 @@ var config = {
   "name": pkg.name
 }
 
-var potentialPorts = [65000,65001,65002,65003];
+var potentialPorts = [35000,35001,35002,35003];
 potentialPorts.forEach(function(kp){
   if(kp !== kadPort){
     config.kad.seeds.push(

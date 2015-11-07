@@ -7,6 +7,12 @@ var dht = kademlia(config.get('kad'));
 log.info('Started kademelia on port ' + config.get('kad.port'));
 log.info(' - Seed list: ' + JSON.stringify(config.get('kad.seeds')));
 
+setTimeout(function() {
+  config.get('kad.seeds').forEach(function(seed) {
+    dht.connect(seed);
+  });
+}, 100);
+
 function Get(req, res, next){
   if(req.params && req.params.hash){
     log.info('Requesting: ' + req.params.hash);
@@ -27,7 +33,7 @@ function Get(req, res, next){
 function Put(req, res, next){
   if(req.params && req.params.hash && req.body.data){
     log.info('Putting: ' + req.params.hash);
-    dht.put(req.params.hash, req.params.data, function(err){
+    dht.put(req.params.hash, req.body.data, function(err){
       if(err){
         res.status(500).json({error: err});
       }else{

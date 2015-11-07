@@ -28,6 +28,7 @@ window.byrd.APIClient = (function() {
     });
 
     xhr.open(verb, path);
+    xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify(data));
   };
 
