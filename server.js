@@ -14,6 +14,7 @@ app.get('/', function(req, res) {
 
 app.use(express.static('public'));
 app.listen(config.get('express.port'));
+console.log('Started express server on ' + config.get('express.port'));
 
 var kademlia = require('kad');
 var dht = kademlia(config.get('kad'))

@@ -17,7 +17,7 @@ var config = {
     "storage": levelup('/tmp/pkg.name'+instanceId)
   },
   "express": {
-    "port": 3000 + instanceId
+    "port": 3000 + Number(instanceId)
   }
 }
 
