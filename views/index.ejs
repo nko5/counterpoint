@@ -5,54 +5,201 @@
 <title></title>
 <meta charset=utf-8>
 <title>Byrd</title>
+<script>window.byrd = {};</script>
 <script src="static/js/async/dist/async.js"></script>
 <script src="static/js/jquery/dist/jquery.js"></script>
 <script src="static/js/jquery-qrcode/jquery.qrcode.min.js"></script>
 <script src="static/js/bitcore-lib/bitcore-lib.js"></script>
 <script src="static/js/aes/aes.js"></script>
 <script src="static/js/aes/aes-ctr.js"></script>
+<script src="static/lib/statusline.js"></script>
 <script src="static/lib/shredder.js"></script>
 <script src="static/lib/blueprint.js"></script>
 <script src="static/lib/api-client.js"></script>
 <script src="static/lib/app.js"></script>
 <script src="static/js/bitcore-mnemonic/bitcore-mnemonic.js"></script>
 <script src="static/lib/shredder.js"></script>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300italic,400italic,600,600italic,700,300' rel='stylesheet' type='text/css'>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="static/js/material-design-lite/material.min.css">
-<script src="static/js/material-design-lite/material.min.js"></script>
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <style>
+body {
+  font-family: 'Open Sans', sans-serif;
+  margin:0;
+  padding:0;
+  background-color: #f6f6f6;
+  color: #333;
+}
+#header h1 {
+  color: #fff;
+  width: 405px;
+  height: 152px;
+  margin: auto;
+  background: url('static/byrd_logo_expanded.svg') center center no-repeat;
+  background-size: 100%;
+  text-indent: -9999px;
+}
+#header {
+  text-align:center;
+  padding:20px;
+  margin-top: 64px;
+}
+.wrapper {
+  margin:25px auto;
+  width: 1010px;
+  overflow: hidden;
+}
+#byrd-search {
+  height:130px;
+  text-align:center;
+  top:30px;
+  margin:auto;
+  width: 60%;
+  min-height:0;
+}
+#byrd-about {
+  width:45%;
+  float:left;
+  padding-right:50px;
+}
+#byrd-shredder {
+  width:45%;
+  float:left;
+}
+#statusline {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  background: #e2e2e2;
+}
+#indicator {
+  float: left;
+  margin: 12px;
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+}
+#indicator.idle {
+  background-color: #d2d2d2;
+}
+#indicator.working {
+  background-color: blue;
+}
+#indicator.failed {
+  background-color: red;
+}
+#indicator.success {
+  background-color: green;
+}
+#statusline .status {
+  float: left;
+  margin: 12px;
+}
+#unshred-blueprint-name {
+  font-size: 26px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0 3px 5px #d2d2d2;
+  background: #fefefe;
+  width: 500px;
+}
+#search-button {
+  width: 48px;
+  height: 48px;
+  display: inline-block;
+  position: relative;
+  top: -4px;
+  left: -56px;
+  background: url('/static/search.svg') center center no-repeat #719a48;
+  border: 0;
+  text-indent: -9999px;
+  overflow: hidden;
+  border-radius: 3px;
+  background-size: 80%;
+}
+
+#search-button:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.bird-search-input {
+  position: relative;
+  left: 12px;
+}
+
+#byrd-about {
+  width: 480px;
+  float: left;
+}
+
+#byrd-shredder {
+  width: 480px;
+  float: left;
+}
+
+h3 {
+  color: #55487e;
+}
+
+a {
+  color: #719a48;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+p {
+  font-size: 14px;
+}
 </style>
 </head>
 <body>
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-  <header class="mdl-layout__header">
-    <div class="mdl-layout-icon">
+<div id="header">
+  <h1 id="logo">Byrd</h1>
+</div>
+<div class="wrapper" style="margin-bottom:100px">
+  <div>
+    <div id="byrd-search">
+      <form id="unshred-form" action="#">
+        <div class="bird-search-input mdl-textfield mdl-js-textfield">
+          <input class="mdl-textfield__input" type="text" id="unshred-blueprint-name" placeholder="Paste or type a file alias here...">
+          <button id="search-button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
+            Find
+          </button>
+        </div>
+      </form>
+      <p><small style="color:#666">Why not try "something", "something", or "something"?</small></p>
     </div>
-    <div class="mdl-layout__header-row">
-      <span class="mdl-layout__title">Byrd</span>
-      <div class="mdl-layout-spacer"></div>
-      <nav class="mdl-navigation">
-        <a class="mdl-navigation__link" href="#">Main</a>
-        <a class="mdl-navigation__link" href="#">About</a>
-      </nav>
-      <iframe src="http://nodeknockout.com/iframe/counterpoint" frameborder=0 scrolling=no allowtransparency=true width=115 height=25>
-      </iframe>
+  </div>
+  <div>
+    <div id="byrd-about">
+      <h3>About</h3>
+      <p>
+        The game is simple. You've got access to documents and <strong>we want you to leak them</strong>.
+      </p>
+      <p>
+        BYRD is a distributed network that allows you to share and access content with <a href="https://en.wikipedia.org/wiki/Plausible_deniability">plausible deniability</a>. Files are encrypted, shredded, and disbursed all over the network. The chunks can be later retrieved and reassembled on your computer by using an easy to remember "alias".
+      </p>
+      <p>
+        <a href="#">Learn More →</a>
+      </p>
     </div>
-  </header>
-  <main class="mdl-layout__content">
-    <div class="mdl-grid">
-      <div class="mdl-cell mdl-cell--6-col">
+    <div id="byrd-shredder">
       <h3>Shred</h3>
       <p>Distribute chunks of a file to the Byrd peer-to-peer network.</p>
       <form id="shred-form" action="#">
+        <p>
+          <input type="file" id="file"></input>
+        </p>
         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
           <input class="mdl-textfield__input" type="text" id="blueprint-name">
           <label class="mdl-textfield__label" for="blueprint-name ">Name</label>
         </div>
-        <p>
-          <input type="file" id="file"></input>
-        </p>
         <p>
           <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
           Shred It
@@ -60,22 +207,14 @@
         </p>
       </form>
     </div>
-    <div class="mdl-cell mdl-cell--6-col">
-      <h3>Unshred</h3>
-      <p>Reassemble a file from the Byrd peer-to-peer network.</p>
-      <form id="unshred-form" action="#">
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input class="mdl-textfield__input" type="text" id="unshred-blueprint-name">
-          <label class="mdl-textfield__label" for="unshred-blueprint-name">Name</label>
-        </div>
-        <p>
-          <button id="unshred" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
-          Unshred It
-          </button>
-        </p>
-      </form>
-    </div>
-  </main>
+  </div>
+</div>
+<div id="statusline">
+  <div class="wrapper" style="margin:0 auto">
+    <i id="indicator" class="idle"></i>
+    <span class="status">No activity</span>
+    <iframe style="float: right;margin:12px" src="http://nodeknockout.com/iframe/counterpoint" frameborder=0 scrolling=no allowtransparency=true width=115 height=25></iframe>
+  </div>
 </div>
 </body>
 </html>
