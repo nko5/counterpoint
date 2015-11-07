@@ -24,6 +24,7 @@
   "scripts": {
     "start": "node app.js",
     "postinstall": "node scripts/postinstall.js"
-  }
-
+  },
+  "license": "MIT",
+  "repository": "https://github.com/nko5/counterpoint"
 }
