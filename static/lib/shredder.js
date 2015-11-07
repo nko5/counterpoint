@@ -4,10 +4,6 @@
 
 'use strict';
 
-if (typeof window.byrd === 'undefined') {
-  window.byrd = {};
-}
-
 window.byrd.Shredder = (function() {
 
   var MIN_CHUNKS = 10;

@@ -5,12 +5,14 @@
 <title></title>
 <meta charset=utf-8>
 <title>Byrd</title>
+<script>window.byrd = {};</script>
 <script src="static/js/async/dist/async.js"></script>
 <script src="static/js/jquery/dist/jquery.js"></script>
 <script src="static/js/jquery-qrcode/jquery.qrcode.min.js"></script>
 <script src="static/js/bitcore-lib/bitcore-lib.js"></script>
 <script src="static/js/aes/aes.js"></script>
 <script src="static/js/aes/aes-ctr.js"></script>
+<script src="static/lib/statusline.js"></script>
 <script src="static/lib/shredder.js"></script>
 <script src="static/lib/blueprint.js"></script>
 <script src="static/lib/api-client.js"></script>
@@ -22,6 +24,43 @@
 <script src="static/js/material-design-lite/material.min.js"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 <style>
+#statusline {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  background: #e2e2e2;
+}
+
+#indicator {
+  float: left;
+  margin: 12px;
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+}
+
+#indicator.idle {
+  background-color: #d2d2d2;
+}
+
+#indicator.working {
+  background-color: blue;
+}
+
+#indicator.failed {
+  background-color: red;
+}
+
+#indicator.success {
+  background-color: green;
+}
+
+#statusline .status {
+  float: left;
+  margin: 12px;
+}
 </style>
 </head>
 <body>
@@ -76,6 +115,10 @@
       </form>
     </div>
   </main>
+</div>
+<div id="statusline">
+  <i id="indicator" class="idle"></i>
+  <span class="status">No activity</span>
 </div>
 </body>
 </html>
