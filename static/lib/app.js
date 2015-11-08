@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var nameFields = document.getElementById('distribute-name-fields');
   var goback = document.getElementById('goto-dropzone');
   var search = document.getElementById('byrd-search');
+  var searchInput = document.getElementById('unshred-blueprint-name');
 
   function chompChompChomp() {
     var logo = document.getElementById('logo');
@@ -93,84 +94,79 @@ document.addEventListener('DOMContentLoaded', function() {
     e.preventDefault();
   },false);
 
+  var suggestions = document.getElementsByClassName('suggestion');
+
+  for (var s = 0; s < suggestions.length; s++) {
+    suggestions[s].addEventListener('click', function(e) {
+      e.preventDefault();
+      searchInput.value = this.innerHTML;
+    });
+  }
+
   api.init(function(err) {
     if (err) {
       statusline.setStatus('failed', 'Unable to initialize connection to database.');
     }
 
-  shredForm.addEventListener('submit', function() {
-    var input = document.getElementById('file');
-    var file = input.files[0];
-    var shredder = new byrd.Shredder(file);
-    var blueprintName = document.getElementById('blueprint-name').value;
+    shredForm.addEventListener('submit', function() {
+      var input = document.getElementById('file');
+      var file = input.files[0];
+      var shredder = new byrd.Shredder(file);
+      var blueprintName = document.getElementById('blueprint-name').value;
 
-    // statusline.setStatus('working', 'Checking for conflicting name...');
+      chompChompChomp();
+      shredder.shred(function(err, chunks) {
 
-    // api.get(blueprintName, function(err, value){
-    //   // If there is an error that means that should mean that the key is available
-    //   if(value){
-    //     return statusline.setStatus('failed', 'Name already exists.');
-    //   }
-    //   if(err) {
-    //     statusline.setStatus('success', 'Name available!');
+      statusline.setStatus('success', 'File shredded into ' + chunks.length + '!');
 
-        chompChompChomp();
-        shredder.shred(function(err, chunks) {
+      var chunksStarted = 0;
+      var chunksDistributed = 0;
 
-          statusline.setStatus('success', 'File shredded into ' + chunks.length + '!');
+      async.mapLimit(chunks, 4, function(chunk, done) {
+        chunksStarted++;
+        var hash = sha256(new Buffer(chunk, 'base64')).toString('base64');
 
-          var chunksStarted = 0;
-          var chunksDistributed = 0;
+        // statusline.setStatus('working', 'Distributing chunk ' + hash + '...');
+        statusline.setStatus('working', 'Distributing chunk ' + chunksStarted + ' of ' + chunks.length + '. ' + chunksDistributed + ' completed.');
 
-          async.mapLimit(chunks, 4, function(chunk, done) {
-            chunksStarted++;
-            var hash = sha256(new Buffer(chunk, 'base64')).toString('base64');
+        api.put(hash, chunk, function(err, result) {
+          chunksDistributed++;
 
-            // statusline.setStatus('working', 'Distributing chunk ' + hash + '...');
-            statusline.setStatus('working', 'Distributing chunk ' + chunksStarted + ' of ' + chunks.length + '. ' + chunksDistributed + ' completed.');
+          done(err, hash);
+        });
+      }, function(err, chunkHashes) {
+        if (err) {
+            stopChompChomp();
+            return statusline.setStatus('failed', 'Failed to distribute all chunks.');
+        }
 
-            api.put(hash, chunk, function(err, result) {
-              chunksDistributed++;
+        var nameParts = shredder._file.name.split('.');
+        var ext = nameParts[nameParts.length - 1];
+        var blueprint = new byrd.Blueprint(chunkHashes, shredder.getMetadata(), shredder.getHash(), ext);
+        var blueprintHash = sha256(new Buffer(JSON.stringify(blueprint), 'base64')).toString('base64');
 
-              done(err, hash);
-            });
-          }, function(err, chunkHashes) {
+        statusline.setStatus('working', 'Distributing file blueprint...');
+
+        api.put(blueprintHash, JSON.stringify(blueprint), function(err, result) {
+          if (err) {
+            stopChompChomp();
+            return statusline.setStatus('failed', 'Failed to distribute file blueprint!');
+          }
+
+          statusline.setStatus('working', 'Registering alias name for file blueprint...');
+
+          api.put(blueprintName, blueprintHash, function(err){
+            stopChompChomp();
+
             if (err) {
-                stopChompChomp();
-                return statusline.setStatus('failed', 'Failed to distribute all chunks.');
+              return statusline.setStatus('failed', 'Failed to register alias name for file blueprint!');
             }
 
-            var nameParts = shredder._file.name.split('.');
-            var ext = nameParts[nameParts.length - 1];
-            var blueprint = new byrd.Blueprint(chunkHashes, shredder.getMetadata(), shredder.getHash(), ext);
-            var blueprintHash = sha256(new Buffer(JSON.stringify(blueprint), 'base64')).toString('base64');
-
-            statusline.setStatus('working', 'Distributing file blueprint...');
-
-            api.put(blueprintHash, JSON.stringify(blueprint), function(err, result) {
-              if (err) {
-                stopChompChomp();
-                return statusline.setStatus('failed', 'Failed to distribute file blueprint!');
-              }
-
-              statusline.setStatus('working', 'Registering alias name for file blueprint...');
-
-              api.put(blueprintName, blueprintHash, function(err){
-                stopChompChomp();
-
-                if (err) {
-                  return statusline.setStatus('failed', 'Failed to register alias name for file blueprint!');
-                }
-
-                statusline.setStatus('success', 'File encrypted, shredded, and distributed. Share your alias name!');
-              });
-            });
+            statusline.setStatus('success', 'File encrypted, shredded, and distributed. Share your alias name!');
           });
         });
-    //   }
-    // });
-
-
+      });
+    });
   });
 
   unshredForm.addEventListener('submit', function() {
@@ -179,7 +175,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     container.innerHTML = '';
 
-    statusline.setStatus('working', 'Querying peers for file blueprint...');
+    statusline.setStatus('working', 'Querying network for file blueprint...');
 
     api.get(blueprintName, function(err, result){
       if (err) {
