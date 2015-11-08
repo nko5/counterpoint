@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (err) {
         return statusline.setStatus('failed', 'Failed to lookup blueprint location!');
       }
-      console.log(result)
+
       if (!result || !result.data) {
         return statusline.setStatus('failed', 'Could not find data for: ' + blueprintName);
       }

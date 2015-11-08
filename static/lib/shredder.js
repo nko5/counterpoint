@@ -7,6 +7,7 @@
 window.byrd.Shredder = (function() {
 
   var MIN_CHUNKS = 10;
+  var MAX_CHUNK_SIZE = 96 * 1024;
 
   var bitcore = require('bitcore-lib');
   var sha256 = bitcore.crypto.Hash.sha256;
@@ -35,12 +36,10 @@ window.byrd.Shredder = (function() {
       var iterations = 10;
       var position = 0;
 
-      console.log(chunkSize, remainder)
-
-      if (chunkSize > 64000) {
-        remainder = encryptedFile.length % 64000;
-        chunkSize = 64000;
-        iterations = (encryptedFile.length - remainder) / 64000;
+      if (chunkSize > MAX_CHUNK_SIZE) {
+        remainder = encryptedFile.length % MAX_CHUNK_SIZE;
+        chunkSize = MAX_CHUNK_SIZE;
+        iterations = (encryptedFile.length - remainder) / MAX_CHUNK_SIZE;
       }
 
       for (var i = 0; i < iterations; i++) {
@@ -80,6 +79,9 @@ window.byrd.Shredder = (function() {
     for (var i = 0; i < chunks.length; i++) {
       encryptedFileString += chunks[i];
     }
+
+    console.log(fileHash)
+    console.log(encryptedFileString)
 
     var decryptedFileString = Aes.Ctr.decrypt(encryptedFileString, fileHash, 256);
 
