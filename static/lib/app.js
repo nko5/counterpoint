@@ -104,15 +104,15 @@ document.addEventListener('DOMContentLoaded', function() {
     var shredder = new byrd.Shredder(file);
     var blueprintName = document.getElementById('blueprint-name').value;
 
-    statusline.setStatus('working', 'Checking for conflicting name...');
+    // statusline.setStatus('working', 'Checking for conflicting name...');
 
-    api.get(blueprintName, function(err, value){
-      // If there is an error that means that should mean that the key is available
-      if(value){
-        return statusline.setStatus('failed', 'Name already exists.');
-      }
-      if(err) {
-        statusline.setStatus('success', 'Name available!');
+    // api.get(blueprintName, function(err, value){
+    //   // If there is an error that means that should mean that the key is available
+    //   if(value){
+    //     return statusline.setStatus('failed', 'Name already exists.');
+    //   }
+    //   if(err) {
+    //     statusline.setStatus('success', 'Name available!');
 
         chompChompChomp();
         shredder.shred(function(err, chunks) {
@@ -167,8 +167,8 @@ document.addEventListener('DOMContentLoaded', function() {
             });
           });
         });
-      }
-    });
+    //   }
+    // });
 
 
   });

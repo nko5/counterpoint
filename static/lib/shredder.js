@@ -7,7 +7,7 @@
 window.byrd.Shredder = (function() {
 
   var MIN_CHUNKS = 10;
-  var MAX_CHUNK_SIZE = 96 * 1024;
+  var MAX_CHUNK_SIZE = 32 * 1000;
 
   var bitcore = require('bitcore-lib');
   var sha256 = bitcore.crypto.Hash.sha256;
