@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', function() {
                   return statusline.setStatus('failed', 'Failed to register alias name for file blueprint!');
                 }
 
-                statusline.setStatus('success', 'File encrpyted, shredded, and distributed. Share your alias name!');
+                statusline.setStatus('success', 'File encrypted, shredded, and distributed. Share your alias name!');
               });
             });
           });
