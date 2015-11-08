@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- The icon can be used freely in both personal and commercial projects with no attribution required, but always appreciated. 
+You may NOT sub-license, resell, rent, redistribute or otherwise transfer the icon without express written permission from iconmonstr.com -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   x="0px"
+   y="0px"
+   width="512px"
+   height="512px"
+   viewBox="0 0 512 512"
+   enable-background="new 0 0 512 512"
+   xml:space="preserve"
+   id="svg2"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="iconmonstr-upload-4-icon.svg"><metadata
+     id="metadata9"><rdf:RDF><cc:Work
+         rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" /></cc:Work></rdf:RDF></metadata><defs
+     id="defs7" /><sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="638"
+     inkscape:window-height="1041"
+     id="namedview5"
+     showgrid="false"
+     inkscape:zoom="0.4609375"
+     inkscape:cx="-1.0847458"
+     inkscape:cy="256"
+     inkscape:window-x="1280"
+     inkscape:window-y="39"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2" /><path
+     id="upload-4-icon"
+     d="M121.884,334.635l134.118-134.587l134.114,134.587h-61.68V462H183.562V334.635H121.884z    M172.518,237.074c-3.278-4.628-6.191-9.532-8.675-14.684h23.308l23.283-23.365c-1.479-13.483-1.565-27.447,0.024-41.742h34.091   v22.508l22.902-0.004v-22.504h34.438c1.511,13.58,1.598,27.653-0.007,42.056l22.971,23.052h23.305   c-2.482,5.152-5.396,10.055-8.674,14.683l18.44,18.506c16.394-21.52,26.133-48.381,26.133-77.521C384.057,107.334,326.724,50,256,50   c-70.723,0-128.057,57.334-128.057,128.058c0,29.14,9.74,56.001,26.134,77.521L172.518,237.074z M355.984,199.486h-31.076   c1.364-13.712,1.428-27.893,0.018-42.204h31.202C358.983,171.11,358.96,185.55,355.984,199.486z M348.464,134.379h-27.095   c-3.556-16.589-9.194-32.391-16.935-46.383C323.614,98.333,339.111,114.617,348.464,134.379z M267.451,77.178   c14.887,14.287,24.876,34.8,30.393,57.201h-30.393V77.178z M244.549,77.512v56.867h-30.046   C219.977,112.152,229.852,91.783,244.549,77.512z M208.055,87.738c-7.814,14.055-13.5,29.949-17.078,46.641h-27.44   C172.968,114.45,188.65,98.06,208.055,87.738z M155.871,157.282h31.55c-1.333,13.547-1.423,27.717,0.018,42.204h-31.424   C153.043,185.565,153.015,171.125,155.871,157.282z"
+     style="fill:#ffffff" /></svg>

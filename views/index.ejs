@@ -37,6 +37,7 @@ body {
   background: url('static/byrd_logo_expanded.svg') center center no-repeat;
   background-size: 100%;
   text-indent: -9999px;
+  background-position: -8px;
 }
 #header {
   text-align:center;
@@ -47,6 +48,7 @@ body {
   margin:25px auto;
   width: 1010px;
   overflow: hidden;
+  margin-top: -6px;
 }
 #byrd-search {
   height:130px;
@@ -56,6 +58,7 @@ body {
   width: 60%;
   min-height:0;
 }
+
 #byrd-about {
   width:45%;
   float:left;
@@ -103,15 +106,24 @@ body {
   border-radius: 3px;
   box-shadow: 0 3px 5px #d2d2d2;
   background: #fefefe;
-  width: 500px;
+  width: 545px;
+}
+
+#blueprint-name {
+  font-size: 16px;
+  padding: 6px 12px;
+  border: 1px solid #719a48;
+  border-radius: 3px;
+  background: #fefefe;
+  width: 400px;
 }
 #search-button {
   width: 48px;
   height: 48px;
   display: inline-block;
   position: relative;
-  top: -4px;
-  left: -56px;
+  top: -52px;
+  left: 269px;
   background: url('/static/search.svg') center center no-repeat #719a48;
   border: 0;
   text-indent: -9999px;
@@ -120,19 +132,50 @@ body {
   background-size: 80%;
 }
 
-#search-button:hover {
+#distribute, #goto-dropzone {
+  background: url('/static/upload.svg') 10px center no-repeat #719a48;
+  background-size: 32px;
+  height: 48px;
+  display: inline-block;
+  position: relative;
+  top: -1px;
+  left: 18px;
+  border: 0;
+  overflow: hidden;
+  border-radius: 3px;
+  color: #ffffff;
+  padding-left: 48px;
+  font-size: 18px;
+  padding-right: 12px;
+  float: right;
+}
+
+#goto-dropzone {
+  background-image: url('static/goback.svg');
+  float: left;
+}
+
+#goto-dropzone:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+#search-button:hover, #distribute:hover {
   opacity: 0.8;
   cursor: pointer;
 }
 
 .bird-search-input {
-  position: relative;
-  left: 12px;
+
 }
 
 #byrd-about {
   width: 480px;
   float: left;
+}
+
+#unshred-form {
+  height: 50px;
 }
 
 #byrd-shredder {
@@ -156,11 +199,31 @@ a:hover {
 p {
   font-size: 14px;
 }
+
+#dropzone {
+  background: url('static/dropzone.svg') center 0 no-repeat #f9f9f9;
+  background-size: 20%;
+  border-radius: 3px;
+  margin: 12px 0;
+  border: 3px dashed #ccc;
+  text-align: center;
+  padding-top: 88px;
+  padding-bottom: 24px;
+  color: #55487e;
+}
+
+#dropzone:hover {
+  cursor: pointer;
+}
+
+#dropzone.hover {
+  background-color: #cccccc;
+}
 </style>
 </head>
 <body>
 <div id="header">
-  <h1 id="logo">Byrd</h1>
+  <h1 id="logo">BYRD</h1>
 </div>
 <div class="wrapper" style="margin-bottom:100px">
   <div>
@@ -190,21 +253,19 @@ p {
       </p>
     </div>
     <div id="byrd-shredder">
-      <h3>Shred</h3>
-      <p>Distribute chunks of a file to the Byrd peer-to-peer network.</p>
+      <h3>Distribute</h3>
       <form id="shred-form" action="#">
-        <p>
-          <input type="file" id="file"></input>
-        </p>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input class="mdl-textfield__input" type="text" id="blueprint-name">
-          <label class="mdl-textfield__label" for="blueprint-name ">Name</label>
+        <div id="distribute-name-fields" style="display:none" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+          <input class="mdl-textfield__input" type="text" id="blueprint-name" placeholder="Type an alias to make your content addressable...">
+          <aside style="margin: 12px; width: 366px;">
+            <button id="goto-dropzone" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Go Back</button>
+            <button id="distribute" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Distribute</button>
+          </aside>
         </div>
-        <p>
-          <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">
-          Shred It
-          </button>
-        </p>
+        <div id="dropzone">
+          Drag your file or click here to select.
+        </div>
+        <input style="display:none" type="file" id="file"></input>
       </form>
     </div>
   </div>
