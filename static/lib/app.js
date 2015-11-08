@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   dropzone.addEventListener('drop', function(e) {
-    var files = event.dataTransfer.files;
+    var files = e.dataTransfer.files;
     var input = document.getElementById('file');
 
     input.files = files;
