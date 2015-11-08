@@ -69,7 +69,7 @@ body {
 }
 #statusline {
   position: fixed;
-  bottom: 0;
+  top: 0;
   left: 0;
   right: 0;
   overflow: hidden;
@@ -221,13 +221,20 @@ p {
 </style>
 </head>
 <body>
+<div id="statusline">
+  <div class="wrapper" style="margin:0 auto">
+    <i id="indicator" class="idle"></i>
+    <span class="status">No activity</span>
+    <iframe style="float: right;margin:12px" src="http://nodeknockout.com/iframe/counterpoint" frameborder=0 scrolling=no allowtransparency=true width=115 height=25></iframe>
+  </div>
+</div>
 <div id="header">
   <h1 id="logo">BYRD</h1>
 </div>
 <div class="wrapper" style="margin-bottom:100px">
   <div>
     <div id="byrd-search">
-      <form id="unshred-form" action="#">
+      <form id="unshred-form">
         <div class="bird-search-input mdl-textfield mdl-js-textfield">
           <input class="mdl-textfield__input" type="text" id="unshred-blueprint-name" placeholder="Paste or type a file alias here...">
           <button id="search-button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--accent">
@@ -253,7 +260,7 @@ p {
     </div>
     <div id="byrd-shredder">
       <h3>Distribute</h3>
-      <form id="shred-form" action="#">
+      <form id="shred-form">
         <div id="distribute-name-fields" style="display:none" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
           <input class="mdl-textfield__input" type="text" id="blueprint-name" placeholder="Type an alias to make your content addressable...">
           <aside style="margin: 12px; width: 366px;">
@@ -267,13 +274,6 @@ p {
         <input style="display:none" type="file" id="file"></input>
       </form>
     </div>
-  </div>
-</div>
-<div id="statusline">
-  <div class="wrapper" style="margin:0 auto">
-    <i id="indicator" class="idle"></i>
-    <span class="status">No activity</span>
-    <iframe style="float: right;margin:12px" src="http://nodeknockout.com/iframe/counterpoint" frameborder=0 scrolling=no allowtransparency=true width=115 height=25></iframe>
   </div>
 </div>
 </body>

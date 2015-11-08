@@ -73,6 +73,10 @@ document.addEventListener('DOMContentLoaded', function() {
     this.removeAttribute('class');
   });
 
+  shredForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+  });
+
   window.addEventListener('dragover',function(e){
     e = e || event;
     e.preventDefault();
@@ -112,7 +116,6 @@ document.addEventListener('DOMContentLoaded', function() {
             statusline.setStatus('working', 'Distributing chunk ' + hash + '...');
 
             api.put(hash, chunk, function(err, result) {
-              statusline.setStatus('success', 'Chunk distributed!');
               done(err, hash);
             });
           }, function(err, chunkHashes) {
