@@ -396,12 +396,13 @@ p {
       <h3>Distribute</h3>
       <form id="shred-form">
         <div id="distribute-name-fields" style="display:none" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input class="mdl-textfield__input" type="text" id="blueprint-name" placeholder="Type an alias to make your content addressable...">
+          <input class="mdl-textfield__input" type="text" id="blueprint-name" maxlen=44 placeholder="Type an alias to make your content addressable...">
           <aside style="margin: 12px; width: 366px;">
             <button type="submit" style="float:right" id="distribute" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Distribute</button>
             <button id="goto-dropzone" style="float:left" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored">Go Back</button>
           </aside>
         </div>
+
         <div id="dropzone">
           <img src="static/dropzone.svg" height="75px" style="display: block;margin: auto;" />
           <span class="desktop">Drag your file or click here to select.</span>

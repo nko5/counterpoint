@@ -113,6 +113,12 @@ document.addEventListener('DOMContentLoaded', function() {
       var file = input.files[0];
       var shredder = new byrd.Shredder(file);
       var blueprintName = document.getElementById('blueprint-name').value;
+      var blueprintNameBuffer = new Buffer(blueprintName, 'ascii');
+      var blueprintNameHex = blueprintNameBuffer.toString('hex');
+      var paddingLength = 88 - blueprintNameHex.length;
+      for (var i = 0; i < paddingLength; i++) {
+        blueprintNameHex = '0' + blueprintNameHex;
+      }
 
       chompChompChomp();
       shredder.shred(function(err, chunks) {
@@ -144,6 +150,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var ext = nameParts[nameParts.length - 1];
         var blueprint = new byrd.Blueprint(chunkHashes, shredder.getMetadata(), shredder.getHash(), ext);
         var blueprintHash = sha256(new Buffer(JSON.stringify(blueprint), 'base64')).toString('base64');
+        var blueprintHashHex = sha256(new Buffer(JSON.stringify(blueprint), 'base64')).toString('hex');
 
         statusline.setStatus('working', 'Distributing file blueprint...');
 
@@ -155,12 +162,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
           statusline.setStatus('working', 'Registering alias name for file blueprint...');
 
-          api.put(blueprintName, blueprintHash, function(err){
+          api.namingServicePut(blueprintNameHex, blueprintHashHex, function(err, result) {
             stopChompChomp();
 
             if (err) {
               return statusline.setStatus('failed', 'Failed to register alias name for file blueprint!');
             }
+
+            var txid = result.txid;
 
             statusline.setStatus('success', 'File encrypted, shredded, and distributed. Share your alias name!');
           });
@@ -176,21 +185,30 @@ document.addEventListener('DOMContentLoaded', function() {
     container.innerHTML = '';
 
     statusline.setStatus('working', 'Querying network for file blueprint...');
+    var blueprintNameBuffer = new Buffer(blueprintName, 'ascii');
+    var blueprintNameHex = blueprintNameBuffer.toString('hex');
+    var paddingLength = 88 - blueprintNameHex.length;
+    for (var i = 0; i < paddingLength; i++) {
+      blueprintNameHex = '0' + blueprintNameHex;
+    }
 
-    api.get(blueprintName, function(err, result){
+    api.namingServiceGet(blueprintNameHex, function(err, result){
       if (err) {
         return statusline.setStatus('failed', 'Failed to lookup blueprint location!');
       }
 
-      if (!result || !result.data) {
+      if (!result || !result.blueprintHash) {
         return statusline.setStatus('failed', 'Could not find data for: ' + blueprintName);
       }
 
-      var blueprintHash = result.data;
+      var blueprintHash = result.blueprintHash;
+
+      var blueprintHashBuffer = new Buffer(blueprintHash, 'hex');
+      var blueprintHashBase64 = blueprintHashBuffer.toString('base64');
 
       statusline.setStatus('working', 'Querying peers for file blueprint...');
 
-      api.get(blueprintHash, function(err, result) {
+      api.get(blueprintHashBase64, function(err, result) {
         if (err) {
           return statusline.setStatus('failed', 'Failed to find file blueprint!');
         }

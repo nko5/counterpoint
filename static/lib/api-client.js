@@ -1,6 +1,8 @@
 'use strict';
 
 window.byrd.APIClient = (function() {
+  var NAMING_SERVICE_IP = '127.0.0.1';
+  var NAMING_SERVICE_PORT = 3001;
 
   function APIClient() {
     this.servers = [];
@@ -40,7 +42,6 @@ window.byrd.APIClient = (function() {
     var xhr = new XMLHttpRequest();
 
     xhr.addEventListener('load', function() {
-      console.log('status', xhr.status)
       var json = JSON.parse(xhr.responseText);
 
       if (xhr.status !== 200 && xhr.status !== 201 && xhr.status !== 304) {
@@ -53,6 +54,14 @@ window.byrd.APIClient = (function() {
     xhr.open(verb, path);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(JSON.stringify(data));
+  };
+
+  APIClient.prototype.namingServicePut = function(name, blueprintHash, callback) {
+    this._request('PUT', 'http://' + NAMING_SERVICE_IP + ':' + NAMING_SERVICE_PORT + '/namingservice/name/' + name, {blueprintHash: blueprintHash}, callback);
+  };
+
+  APIClient.prototype.namingServiceGet = function(name, callback) {
+    this._request('GET', 'http://' + NAMING_SERVICE_IP + ':' + NAMING_SERVICE_PORT + '/namingservice/name/' + name, {}, callback);
   };
 
   return APIClient;
