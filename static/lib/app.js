@@ -14,6 +14,19 @@ document.addEventListener('DOMContentLoaded', function() {
   var nameFields = document.getElementById('distribute-name-fields');
   var goback = document.getElementById('goto-dropzone');
 
+  function chompChompChomp() {
+    var logo = document.getElementById('logo');
+    logo.setAttribute('style', 'background-image:url("static/byrd.gif")');
+  }
+
+  function stopChompChomp() {
+    setTimeout(function() {
+      var logo = document.getElementById('logo');
+      logo.removeAttribute('style');
+      toggleFormState();
+    }, 700);
+  }
+
   function toggleFormState() {
     if (!dropzone.getAttribute('style')) {
       dropzone.setAttribute('style', 'display:none');
@@ -82,6 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if(err) {
         statusline.setStatus('success', 'Name available!');
 
+        chompChompChomp();
         shredder.shred(function(err, chunks) {
 
           statusline.setStatus('success', 'File shredded into ' + chunks.length + '!');
@@ -97,6 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
           }, function(err, chunkHashes) {
             if (err) {
+                stopChompChomp();
                 return statusline.setStatus('failed', 'Failed to distribute all chunks.');
             }
 
@@ -107,18 +122,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
             api.put(blueprintHash, JSON.stringify(blueprint), function(err, result) {
               if (err) {
+                stopChompChomp();
                 return statusline.setStatus('failed', 'Failed to distribute file blueprint!');
               }
 
               statusline.setStatus('working', 'Registering alias name for file blueprint...');
 
               api.put(blueprintName, blueprintHash, function(err){
+                stopChompChomp();
+
                 if (err) {
                   return statusline.setStatus('failed', 'Failed to register alias name for file blueprint!');
                 }
-              })
 
-              statusline.setStatus('success', 'File encrpyted, shredded, and distributed. Share your alias name!');
+                statusline.setStatus('success', 'File encrpyted, shredded, and distributed. Share your alias name!');
+              });
             });
           });
         });
