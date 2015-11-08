@@ -108,6 +108,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     api.get(blueprintName, function(err, value){
       // If there is an error that means that should mean that the key is available
+      if(value){
+        return statusline.setStatus('failed', 'Name already exists.');
+      }
       if(err) {
         statusline.setStatus('success', 'Name available!');
 
