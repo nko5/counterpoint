@@ -10,7 +10,7 @@ Byrd UI allows you reassemble the files when provided the alias of a previously 
 
 For the sake of the demo for the node knockout hackathon, we are running Byrd UI on the provided modulus.io instance at [http://counterpoint.2015.nodeknockout.com/](http://counterpoint.2015.nodeknockout.com/)
 
-The external API is deployed to 3 EC2 instances. Jacques Crocker has been provided with root access to these machines to ensure they are really only running the open source project above, and to make sure no tampering will take place after the contest ends.
+The external API is deployed to 3 EC2 instances, which are listed below. Jacques Crocker has been provided with root access to these machines to ensure they are really only running the open source project above, and to make sure no tampering will take place after the contest ends.
 
 ```
 # getting the code
