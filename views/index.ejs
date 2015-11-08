@@ -20,7 +20,7 @@
 <script src="static/js/bitcore-mnemonic/bitcore-mnemonic.js"></script>
 <script src="static/lib/shredder.js"></script>
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300italic,400italic,600,600italic,700,300' rel='stylesheet' type='text/css'>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width">
 <style>
 body {
   font-family: 'Open Sans', sans-serif;
@@ -31,7 +31,7 @@ body {
 }
 #header h1 {
   color: #fff;
-  width: 405px;
+  max-width: 405px;
   height: 152px;
   margin: auto;
   background: url('static/byrd_logo_expanded.svg') center center no-repeat;
@@ -218,6 +218,79 @@ p {
 #dropzone.hover {
   background-color: #cccccc;
 }
+
+.mobile {
+  display: none;
+}
+
+@media (max-width: 1052px) {
+  .wrapper {
+    width: auto;
+  }
+
+  #byrd-about, #byrd-shredder {
+    width: auto;
+    float: none;
+    padding: 0;
+    margin: 24px;
+  }
+
+  #dropzone {
+    background-size: 14%;
+  }
+
+  #byrd-search {
+    width: auto;
+  }
+
+  .ctr {
+    margin: 24px;
+  }
+
+  #unshred-blueprint-name {
+    width: auto;
+    min-width: 352px;
+  }
+
+  #search-button {
+    width: 54px;
+    height: 54px;
+    top: -4px;
+    left: 0;
+    box-shadow: 0 3px 5px #d2d2d2;
+  }
+}
+
+@media (max-width: 506px) {
+  .ctr {
+    margin: 6px;
+  }
+
+  .mobile {
+    display: inline;
+  }
+
+  .desktop {
+    display: none;
+  }
+
+  #dropzone {
+    background-size: 25%;
+  }
+
+  #unshred-blueprint-name {
+    font-size: 16px;
+    padding: 12px;
+    display: table-cell;
+    min-width: 0;
+  }
+
+  #search-button {
+    width: 42px;
+    height: 42px;
+    top: 0;
+  }
+}
 </style>
 </head>
 <body>
@@ -232,7 +305,7 @@ p {
   <h1 id="logo">BYRD</h1>
 </div>
 <div class="wrapper" style="margin-bottom:100px">
-  <div>
+  <div class="ctr">
     <div id="byrd-search">
       <form id="unshred-form">
         <div class="bird-search-input mdl-textfield mdl-js-textfield">
@@ -269,7 +342,8 @@ p {
           </aside>
         </div>
         <div id="dropzone">
-          Drag your file or click here to select.
+          <span class="desktop">Drag your file or click here to select.</span>
+          <span class="mobile">Tap to select a file.</span>
         </div>
         <input style="display:none" type="file" id="file"></input>
       </form>
