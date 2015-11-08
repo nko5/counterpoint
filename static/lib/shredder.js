@@ -71,6 +71,7 @@ window.byrd.Shredder = (function() {
     var anchor = document.createElement('a');
     anchor.href = uri;
     anchor.click();
+    window.open(uri);
   };
 
   Shredder.prototype.unshred = function(fileHash, chunks, callback) {

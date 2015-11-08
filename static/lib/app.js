@@ -116,12 +116,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
           statusline.setStatus('success', 'File shredded into ' + chunks.length + '!');
 
+          var chunksStarted = 0;
+          var chunksDistributed = 0;
+
           async.mapLimit(chunks, 4, function(chunk, done) {
+            chunksStarted++;
             var hash = sha256(new Buffer(chunk, 'base64')).toString('base64');
 
-            statusline.setStatus('working', 'Distributing chunk ' + hash + '...');
+            // statusline.setStatus('working', 'Distributing chunk ' + hash + '...');
+            statusline.setStatus('working', 'Distributing chunk ' + chunksStarted + ' of ' + chunks.length + '. ' + chunksDistributed + ' completed.');
 
             api.put(hash, chunk, function(err, result) {
+              chunksDistributed++;
+
               done(err, hash);
             });
           }, function(err, chunkHashes) {
@@ -189,8 +196,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
         statusline.setStatus('working', 'Got file blueprint, querying peers for chunks...');
 
-        async.mapLimit(blueprint.chunkHashes, 4, function(hash, done) {
-          api.get(hash, done);
+        var numChunksReceived = 0;
+
+        async.mapLimit(blueprint.chunkHashes, 15, function(hash, done) {
+          api.get(hash, function(err, result){
+            numChunksReceived++;
+            statusline.setStatus('working', 'Recieved file chunk ' + numChunksReceived + ' of ' + blueprint.chunkHashes.length);
+            done(err, result);
+          });
         }, function(err, results) {
           if (err) {
             return statusline.setStatus('failed', 'Failed to resolve all file chunks!');
