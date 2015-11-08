@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var fileInput = document.getElementById('file');
   var nameFields = document.getElementById('distribute-name-fields');
   var goback = document.getElementById('goto-dropzone');
+  var search = document.getElementById('byrd-search');
 
   function chompChompChomp() {
     var logo = document.getElementById('logo');
@@ -40,6 +41,11 @@ document.addEventListener('DOMContentLoaded', function() {
       nameFields.removeAttribute('style');
     }
   };
+
+  search.addEventListener('submit', function(e) {
+    e.preventDefault();
+    document.getElementById('search-button').click();
+  });
 
   goback.addEventListener('click', function(e) {
     e.preventDefault();
