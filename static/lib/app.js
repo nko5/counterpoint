@@ -48,6 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   fileInput.addEventListener('change', function(e) {
     toggleFormState();
+    e.preventDefault();
   });
 
   dropzone.addEventListener('click', function(e) {
@@ -160,11 +161,12 @@ document.addEventListener('DOMContentLoaded', function() {
       if (err) {
         return statusline.setStatus('failed', 'Failed to lookup blueprint location!');
       }
-        if (!result || result.data) {
-          return statusline.setStatus('failed', 'Could not find data for: ' + blueprintName);
-        }
+      console.log(result)
+      if (!result || !result.data) {
+        return statusline.setStatus('failed', 'Could not find data for: ' + blueprintName);
+      }
 
-        var blueprintHash = result.data;
+      var blueprintHash = result.data;
 
       statusline.setStatus('working', 'Querying peers for file blueprint...');
 
