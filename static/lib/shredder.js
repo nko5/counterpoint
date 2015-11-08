@@ -74,7 +74,7 @@ window.byrd.Shredder = (function() {
     window.open(uri);
   };
 
-  Shredder.prototype.getDownloadLink = function(uri) {
+  Shredder.prototype.getDownloadLink = function(uri, name) {
     var anchor = document.createElement('a');
     var sizeBytes = new Buffer(uri.split(',')[1], 'base64').length;
 
@@ -91,6 +91,11 @@ window.byrd.Shredder = (function() {
     anchor.target = '_blank';
     anchor.href = uri;
     anchor.innerHTML = 'Download File (' + humanSize + ')';
+
+    if (name) {
+      anchor.setAttribute('download', name);
+    }
+
     return anchor;
   };
 

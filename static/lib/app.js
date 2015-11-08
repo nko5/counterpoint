@@ -140,7 +140,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 return statusline.setStatus('failed', 'Failed to distribute all chunks.');
             }
 
-            var blueprint = new byrd.Blueprint(chunkHashes, shredder.getMetadata(), shredder.getHash());
+            var nameParts = shredder._file.name.split('.');
+            var ext = nameParts[nameParts.length - 1];
+            var blueprint = new byrd.Blueprint(chunkHashes, shredder.getMetadata(), shredder.getHash(), ext);
             var blueprintHash = sha256(new Buffer(JSON.stringify(blueprint), 'base64')).toString('base64');
 
             statusline.setStatus('working', 'Distributing file blueprint...');
@@ -173,6 +175,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
   unshredForm.addEventListener('submit', function() {
     var blueprintName = document.getElementById('unshred-blueprint-name').value;
+    var container = document.getElementById('downloadme');
+
+    container.innerHTML = '';
 
     statusline.setStatus('working', 'Querying peers for file blueprint...');
 
@@ -223,12 +228,13 @@ document.addEventListener('DOMContentLoaded', function() {
               return statusline.setStatus('failed', 'Failed to assemble file chunks and decrypt!');
             }
 
+            var filename = blueprint.ext ? (blueprintName + '.' + blueprint.ext) : null;
             var dataURI = blueprint.metadata + ',' + url;
 
             statusline.setStatus('success', 'File resolved! Thank you, come again!');
             // shredder.download(dataURI);
-            var downloadLink = shredder.getDownloadLink(dataURI);
-            var container = document.getElementById('downloadme');
+            var downloadLink = shredder.getDownloadLink(dataURI, filename);
+
             container.innerHTML = '';
             container.appendChild(downloadLink);
           });
