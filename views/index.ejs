@@ -29,6 +29,12 @@ body {
   background-color: #f6f6f6;
   color: #333;
 }
+
+iframe {
+  float: right;
+  margin:12px;
+}
+
 #header h1 {
   color: #fff;
   max-width: 405px;
@@ -61,7 +67,7 @@ body {
 #byrd-about {
   width:45%;
   float:left;
-  padding-right:50px;
+  padding-left:50px;
 }
 #byrd-shredder {
   width:45%;
@@ -200,14 +206,12 @@ p {
 }
 
 #dropzone {
-  background: url('static/dropzone.svg') center 0 no-repeat #f9f9f9;
   background-size: 20%;
   border-radius: 3px;
   margin: 12px 0;
   border: 3px dashed #ccc;
   text-align: center;
-  padding-top: 88px;
-  padding-bottom: 24px;
+  padding: 24px;
   color: #55487e;
 }
 
@@ -223,20 +227,49 @@ p {
   display: none;
 }
 
+#downloadme {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+#downloadme a {
+  background: #719a48;
+  color: #fff;
+  padding: 12px;
+  border-radius: 3px;
+}
+
+#downloadme a:hover {
+  opacity: 0.8;
+  cursor: pointer;
+  text-decoration: none;
+}
+
 @media (max-width: 1052px) {
   .wrapper {
     width: auto;
   }
 
   #byrd-about, #byrd-shredder {
-    width: auto;
+    width: 430px;
     float: none;
     padding: 0;
-    margin: 24px;
+    margin: 24px auto;
   }
 
   #dropzone {
     background-size: 14%;
+  }
+
+  #distribute, #goto-dropzone {
+    top: 0;
+    left: 0;
+    font-size: 14px;
+  }
+
+  aside {
+    width: auto !important;
+    overflow: hidden;
   }
 
   #byrd-search {
@@ -266,12 +299,54 @@ p {
     margin: 6px;
   }
 
+  #byrd-about, #byrd-shredder {
+    width: 90%;
+  }
+
+  #blueprint-name {
+    width: 100%;
+    display: table-cell;
+    position: relative;
+    left: -12px;
+  }
+
+  #distribute, #goto-dropzone {
+    top: 0;
+    left: 0;
+    font-size: 14px;
+  }
+
+  aside {
+    width: auto !important;
+    overflow: hidden;
+  }
+
   .mobile {
     display: inline;
   }
 
   .desktop {
     display: none;
+  }
+
+  #statusline .status {
+    float: left;
+    margin: 6px 0;
+    font-size: 12px;
+  }
+
+  #indicator {
+    margin: 8px;
+    width: 12px;
+    height: 12px;
+  }
+
+  iframe {
+    display: block;
+    margin: 40px auto;
+    clear: both;
+    float: none;
+    margin-bottom: 12px;
   }
 
   #dropzone {
@@ -298,7 +373,7 @@ p {
   <div class="wrapper" style="margin:0 auto">
     <i id="indicator" class="idle"></i>
     <span class="status">No activity</span>
-    <iframe style="float: right;margin:12px" src="http://nodeknockout.com/iframe/counterpoint" frameborder=0 scrolling=no allowtransparency=true width=115 height=25></iframe>
+    <iframe style="" src="http://nodeknockout.com/iframe/counterpoint" frameborder=0 scrolling=no allowtransparency=true width=115 height=25></iframe>
   </div>
 </div>
 <div id="header">
@@ -317,20 +392,9 @@ p {
       </form>
       <p><small style="color:#666">Why not try "something", "something", or "something"?</small></p>
     </div>
+    <div id="downloadme"></div>
   </div>
   <div>
-    <div id="byrd-about">
-      <h3>About</h3>
-      <p>
-        The game is simple. You've got access to documents and <strong>we want you to leak them</strong>.
-      </p>
-      <p>
-        BYRD is a distributed network that allows you to share and access content with <a href="https://en.wikipedia.org/wiki/Plausible_deniability">plausible deniability</a>. Files are encrypted, shredded, and disbursed all over the network. The chunks can be later retrieved and reassembled on your computer by using an easy to remember "alias".
-      </p>
-      <p>
-        <a href="https://github.com/nko5/counterpoint/blob/master/README.md">Learn More →</a>
-      </p>
-    </div>
     <div id="byrd-shredder">
       <h3>Distribute</h3>
       <form id="shred-form">
@@ -342,11 +406,24 @@ p {
           </aside>
         </div>
         <div id="dropzone">
+          <img src="static/dropzone.svg" height="75px" style="display: block;margin: auto;" />
           <span class="desktop">Drag your file or click here to select.</span>
           <span class="mobile">Tap to select a file.</span>
         </div>
         <input style="display:none" type="file" id="file"></input>
       </form>
+    </div>
+    <div id="byrd-about">
+      <h3>About</h3>
+      <p>
+        The game is simple. You've got access to documents and <strong>we want you to leak them</strong>.
+      </p>
+      <p>
+        BYRD is a distributed network that allows you to share and access content with <a href="https://en.wikipedia.org/wiki/Plausible_deniability">plausible deniability</a>. Files are encrypted, shredded, and disbursed all over the network. The chunks can be later retrieved and reassembled on your computer by using an easy to remember "alias".
+      </p>
+      <p>
+        <a href="https://github.com/nko5/counterpoint/blob/master/README.md">Learn More →</a>
+      </p>
     </div>
   </div>
 </div>

@@ -223,8 +223,11 @@ document.addEventListener('DOMContentLoaded', function() {
             var dataURI = blueprint.metadata + ',' + url;
 
             statusline.setStatus('success', 'File resolved! Thank you, come again!');
-            shredder.download(dataURI);
-
+            // shredder.download(dataURI);
+            var downloadLink = shredder.getDownloadLink(dataURI);
+            var container = document.getElementById('downloadme');
+            container.innerHTML = '';
+            container.appendChild(downloadLink);
           });
         });
       });

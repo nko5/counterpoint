@@ -74,6 +74,26 @@ window.byrd.Shredder = (function() {
     window.open(uri);
   };
 
+  Shredder.prototype.getDownloadLink = function(uri) {
+    var anchor = document.createElement('a');
+    var sizeBytes = new Buffer(uri.split(',')[1], 'base64').length;
+
+    var humanSize = '';
+
+    if (sizeBytes < 1000000000 && sizeBytes > 1000000) {
+        humanSize = ((sizeBytes / 1000) / 1000).toFixed(2) + 'mb';
+    } else if (sizeBytes < 1000000 && sizeBytes > 1000) {
+        humanSize = (sizeBytes / 1000).toFixed(2) + 'kb';
+    } else {
+        humanSize = sizeBytes + 'b';
+    }
+
+    anchor.target = '_blank';
+    anchor.href = uri;
+    anchor.innerHTML = 'Download File (' + humanSize + ')';
+    return anchor;
+  };
+
   Shredder.prototype.unshred = function(fileHash, chunks, callback) {
     var encryptedFileString = '';
 
