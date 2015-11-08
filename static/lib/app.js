@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         statusline.setStatus('working', 'Got file blueprint, querying peers for chunks...');
 
-        async.map(blueprint.chunkHashes, function(hash, done) {
+        async.mapLimit(blueprint.chunkHashes, 4, function(hash, done) {
           api.get(hash, done);
         }, function(err, results) {
           if (err) {
