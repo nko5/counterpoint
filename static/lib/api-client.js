@@ -24,6 +24,7 @@ window.byrd.APIClient = (function() {
       nextServer = 0;
     }
     var server = this.servers[nextServer];
+    this.lastServer = nextServer;
     return 'http://' + server.address + ':' + server.port + '/';
   };
 
