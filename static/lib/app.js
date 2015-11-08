@@ -82,6 +82,11 @@ document.addEventListener('DOMContentLoaded', function() {
     e.preventDefault();
   },false);
 
+  api.init(function(err) {
+    if (err) {
+      statusline.setStatus('failed', 'Unable to initialize connection to database.');
+    }
+
   shredForm.addEventListener('submit', function() {
     var input = document.getElementById('file');
     var file = input.files[0];
@@ -152,11 +157,14 @@ document.addEventListener('DOMContentLoaded', function() {
     statusline.setStatus('working', 'Querying peers for file blueprint...');
 
     api.get(blueprintName, function(err, result){
-      var blueprintHash = result.data;
-
       if (err) {
         return statusline.setStatus('failed', 'Failed to lookup blueprint location!');
       }
+        if (!result || result.data) {
+          return statusline.setStatus('failed', 'Could not find data for: ' + blueprintName);
+        }
+
+        var blueprintHash = result.data;
 
       statusline.setStatus('working', 'Querying peers for file blueprint...');
 
@@ -199,5 +207,10 @@ document.addEventListener('DOMContentLoaded', function() {
     })
 
   });
+
+
+  });
+
+
 
 });
