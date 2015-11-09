@@ -32,3 +32,12 @@ Create the file config/local.json, and populate it with your servers in the foll
   {"address": "52.33.79.141", "port": 3000}
 ]
 ```
+
+
+## Bitcoin for Naming
+
+The master branch implementation maps a name to a blueprint hash by simply making another entry in the hash table.
+
+The [bitcoinSauce](https://github.com/nko5/counterpoint/tree/bitcoinSauce) branch stores the name-hash mappings in the Bitcoin blockchain.
+Instead of calling out to the Byrd server, the client calls out to a [Bitcore](https://github.com/bitpay/bitcore) node, running a custom
+[Byrd naming service](https://github.com/gabegattis/namingservice)
